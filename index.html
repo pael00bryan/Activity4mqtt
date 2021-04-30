@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Document</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+
+            <h3>Activity 4: Online MQTT Web Client
+            </h3>
+
+        </div>
+    </div>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="card mb-3 bg-light" style="width: 370px;">
+                    <div class="col-lg">
+                        <div class="card-body">
+                            <h5 class="card-title text-dark"><strong>Address</strong></h5>
+                            <div class="input-group mb-3">
+                                <input type="text" readonly class="form-control" value="wss://mqtt.eclipseprojects.io:443/mqtt" aria-label="Topic" aria-describedby="basic-addon1">
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group">
+                                    <button id="connect" class="btn btn-info btn-primary mt-2">Connect  <span><button id="disconnect" class="btn btn-warning btn-sm ml-2 mt-2">Disconnect </button></span>
+                                    </button>
+                                </div>
+                                <div class="input-group">
+                                    <h6 class="card-title text-light mt-4"><strong>Status</strong></h6>
+                                </div>
+                                
+                                <input type="text" id="status" readonly class="form-control" placeholder="Press to Connect" value="" aria-label="Payload" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="col-sm-4">
+                <div class="card mb-3 bg-light" style="width: 370px;height: 280px;">
+                    <div class="col-lg">
+                        <div class="card-body">
+                            <h5 class="card-title text-dark mt-4"><strong>Publish</strong></h5>
+                            <div class="input-group mb-3">
+                                
+                                <input type="text" id="topic" class="form-control" placeholder="Topic" aria-label="Topic" aria-describedby="basic-addon1">
+                            </div>
+                            <div class="input-group mb-3">
+                                
+                                <input type="text" id="payload" class="form-control" placeholder="Payload" aria-label="Payload" aria-describedby="basic-addon1">
+                            </div>
+
+                            <div class="input-group mt-4">
+                                <button id="published" class="btn btn-info btn-primary">Publish</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card mb-3 bg-light" style="width: 370px;height: 280px;">
+                    <div class="col-lg">
+                        <div class="card-body">
+
+                            <h5 class="card-title text-dark mt-5"><strong>Subscribe</strong></h5>
+                            <div class="input-group mb-3">
+                                
+                                <input type="text" id="subtopic" class="form-control" placeholder="Topic" aria-label="Topic" aria-describedby="basic-addon1">
+                            </div>
+
+                            <div class="input-group mt-4">
+                                <span><button id="subscribe" class="btn btn-info btn-primary">Subscribe </button></span>
+                            </div>
+                            <div class="input-group mt-2">
+                                <span><button id="unsubscribe" class="btn btn-danger btn-sm">Unsubscribe</button></span>
+                            </div>
+                            <br><br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 mt-5">
+                <h6 class="mt-2 bg-light p-3" style="width: 370px;"><strong>Incoming Messages </strong></h6>
+                <div class="card-body bg-light" style="overflow-y: scroll;height: 350px; width: 370px;">
+                    <table class="table table-hover table-light text-dark" id="tableMessages">
+                        <thead>
+                            <tr>
+                                <th scope="col">Topic</th>
+                                <th scope="col">Payload</th>
+                                <th scope="col">Time Stamp</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <br><br>
+            <div class="col-sm-4 mt-5">
+                <h6 class="mt-2 bg-light p-3" style="width: 370px;"><strong ">Published Messages </strong></h6>
+                <div class="card-body bg-light" id="table2">
+                    <table class="table table-hover table-light text-dark" id="tablePub">
+                        <thead>
+                            <tr>
+                                <th scope="col">Topic</th>
+                                <th scope="col">Payload</th>
+                                <th scope="col">Time Stamp</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <br>
+            <div class="col-sm-4 mt-5">
+                <h6 class="mt-2 bg-light p-3" style="width: 370px;"><strong ">Subscribed Messages </strong></h6>
+                <div class="card-body bg-light" id="table3">
+                    <table class="table table-hover table-light text-dark" id="tableSub">
+                        <thead style="border-bottom: 1px solid black;">
+                            <tr>
+                                <th scope="col">Topic</th>
+                                <th scope="col">Time Stamp</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="jumbotron bg-transparent">
+    </div>
+
+    <style>
+        
+        #table2,
+        #table3 {
+            overflow-y: scroll;
+            height: 350px;
+            width: 370px;
+        }
+        
+         ::-webkit-scrollbar {
+            width: 0;
+            /* Remove scrollbar space */
+            background: transparent;
+            /* Optional: just make scrollbar invisible */
+        }
+        /* Optional: show position indicator in red */
+        
+    </style>
+    <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="./browserMqtt.js"></script>
+    <script src="./index.js"></script>
+
+</body>
+
+</html>
